@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- other meta tags -->
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+      <!-- fevicon -->
+      <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+      <!-- font awesome -->
+      <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- owl stylesheets -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.fashion_section_2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust as needed */
+}
+
+.box_main {
+    width: 100%;
+    height: 100%; /* Set a fixed height */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Add margin to create space between boxes */
+}
+
+.tshirt_img {
+    overflow: hidden; /* Ensure images don't exceed box height */
+}
+
+.tshirt_img img {
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Ensure consistent height for all images */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+
+.header_section {
+    position: relative;
+    z-index: 1;
+    padding: 15px; /* Add more padding to the navbar */
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #e6b800; /* Change the background color for the fixed navbar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for a subtle effect */
+    z-index: 1000;
+    padding: 15px; /* Add more padding to the fixed navbar */
+}
+
+.login_menu {
+    padding-right: 20px;
+}
+
+.login_menu ul li a {
+    padding: 10px;
+}
+/* Add more padding to the User Login and Cart elements */
+.login_menu {
+    padding-right: 20px;
+    color: black;
+}
+
+.login_menu ul li a {
+    padding: 10px;
+}
+
+         .dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+ 
+    pointer-events: none;
+}
+   .feedback_box {
+      background-color: #f8f8f8;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+
+   .feedback_box h2 {
+      font-size: 24px;
+      color: #333;
+   }
+
+   .feedback_box p {
+      font-size: 16px;
+      color: #666;
+   }
+
+   .feedback_box form {
+      margin-top: 15px;
+   }
+
+   .feedback_box textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+   }
+
+   .feedback_box button {
+      background-color: #f26522;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+   }
+
+      </style>
+   </head>
+   <body>
+      <!-- banner bg main start -->
+      <div class="banner_bg_main">
+         <!-- header top section start -->
+         <div class="container">
+            <div class="header_section_top">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="custom_menu">
+                        <ul>
+                           <li><a href="#">Best Sellers</a></li>
+                           <li><a href="#">Gift Ideas</a></li>
+                           <li><a href="#">New Releases</a></li>
+                           <li><a href="#">Today's Deals</a></li>
+                           <li><a href="#">Customer Service</a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- header top section start -->
+         <!-- logo section start --> 
+         
+         <div class="logo_section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="logo"><a href="{% static 'index.html' %}"><img src="{% static 'images/logo.png' %}" width="400px"></a></div>
+                     <!-- toggle icon -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="header_section">
+            <div class="container">
+               <div class="containt_main">
+                  <div id="mySidenav" class="sidenav">
+                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                     <a href="index.html">Home</a>
+                     <a href="fashion.html">Fashion</a>
+                  </div>
+                  <span class="toggle_icon" onclick="openNav()"><img src="{% static 'images/toggle-icon.png' %}"></span>
+                  <div class="main">
+                     <!-- Another variation with a button -->
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-append">
+                           <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                           <i class="fa fa-search"></i>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="dropdown" id="fixedDropdown">
+                     <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+                             aria-expanded="false">
+                         Womens
+                     </button>
+                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                         <li><a class="dropdown-item" href="{% url 'saree' %}">Saree</a></li>
+                         <li><a class="dropdown-item" href="{% url 'churidar' %}">Churidar</a></li>
+                     </ul>
+                 </div>
+                 <div class="dropdown" id="fixedDropdown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+                          aria-expanded="false">
+                      Mens
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="{% url 'tshirt' %}"">T Shirt</a></li>
+                      <li><a class="dropdown-item" href="{% url 'shirt' %}">Shirts</a></li>
+                  </ul>
+              </div>
+                  <div class="header_box">
+
+                     <div class="login_menu" >
+                        <ul>
+                           <li id="cartIcon">
+                              <a href="{% url 'cart' %}">
+                                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                  <span class="padding_10">Cart</span>
+                                  <span id="cartCount">{{ cart_count }}</span>
+                              </a>
+                          </li>
+                           <li><a href="{%url 'logout' %}">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span class="padding_10">Logout</span></a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+       
+         <!-- header section end -->
+         <!-- banner section start -->
+         <div class="banner_section layout_padding">
+            <div class="container">
+               <div id="my_slider" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                     <div class="carousel-item active">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favourite shopping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Shop At <br> The Sale Prices</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Delivery at <br>the DoorStep</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
+                  <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
+                  <i class="fa fa-angle-right"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+        
+         <!-- banner section end -->
+      </div>
+      <!-- banner bg main end -->
+        
+      <div class="fashion_section">
+         <div class="container">
+            {% include 'messages.html' %}
+           <h1 class="fashion_taital">Men & Woman Fashion</h1>
+           <div class="fashion_section_2">
+             <div class="row">
+               {% for product in random_products %}
+                 <div class="col-lg-4 col-sm-4">
+                   <div class="box_main">
+                     <h4 class="shirt_text">{{ product.name }}</h4>
+                     <p class="price_text">Price <span style="color: #262626;">₹ {{ product.price|floatformat:2 }}</span></p>
+                     <div class="tshirt_img">
+                       <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                     </div>
+                     <div class="btn_main">
+                       <div class="buy_bt">
+                        <a href="{% url 'checkout' total_amount=product.price %}" class="buy-now-btn">Buy Now</a>
+                       </div>
+                       <div class="seemore_bt">
+                        <form id="addToCartForm" action="{% url 'add_to_cart' product_id=product.id %}" method="post">
+                           {% csrf_token %}
+                           <button type="submit">Add to Cart</button>
+                       </form>
+                       </div>
+                     </div>
+                   
+                   </div>
+                 </div>
+               {% endfor %}
+             </div>
+           </div>
+         </div>
+       </div>
+                 <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                     <i class="fa fa-angle-left"></i>
+                 </a>
+                 <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                     <i class="fa fa-angle-right"></i>
+                 </a>
+             </div>
+         </div>
+     </div>
+     <div class="footer_section layout_padding">
+      <div class="container">
+         <div class="footer_logo"><a href="index.html"><img src="{% static 'images/footer.png' %}"></a></div>
+   
+         <!-- Your existing footer content -->
+   
+         <!-- Feedback Section -->
+         <div class="feedback_box">
+            <h2>Feedback</h2>
+            <p>We value your feedback! Let us know about your shopping experience and how we can improve.</p>
+            <form action="{% url 'user_feedback' %}" method="post">
+               {% csrf_token %}
+               <textarea name="feedback" placeholder="Type your feedback here" rows="4"></textarea>
+               <button type="submit">Submit Feedback</button>
+            </form>
+         </div>
+      </div>
+   </div>
+   
+      
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'js/plugin.js' %}"></script>
+      <!-- sidebar -->
+      <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+      
+   </body>
+</html>

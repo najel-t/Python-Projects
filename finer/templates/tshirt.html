@@ -1,0 +1,321 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shirt Collection</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <style>
+      body {
+        font-family: "Cursive", sans-serif;
+        background: #d6d6d6;
+        color: #edeaea;
+        padding-top: 56px;
+        margin: 0;
+      }
+
+      nav {
+        font-family: "Cursive", sans-serif;
+        background: linear-gradient(45deg, #e5f06f, #f3af27);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+      }
+
+      .navbar-brand {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 100%;
+        color: #1a1a1a;
+      }
+
+      nav a {
+        color: #1a1a1a;
+      }
+
+      .sidebar {
+        position: fixed;
+        width: 250px;
+        height: 100%;
+        background: linear-gradient(45deg, #ededec, #ecefc9);
+        color: #1a1a1a;
+        padding-top: 20px;
+        box-shadow: 4px 0 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 15px;
+        text-decoration: none;
+        color: #1a1a1a;
+        transition: background-color 0.3s;
+      }
+
+      .sidebar a:hover {
+        background-color: #454d55;
+        color: #ede9e9;
+      }
+
+      .sidebar h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1a1a1a;
+      }
+
+      .sidebar p {
+        padding: 0 15px;
+        margin-bottom: 20px;
+      }
+
+      .sidebar hr {
+        border: 1px solid #1a1a1a;
+        margin: 20px 0;
+      }
+
+      .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidebar li {
+        padding: 10px;
+      }
+
+      .sidebar li a {
+        color: #1a1a1a;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .sidebar li a:hover {
+        color: #ede9e9;
+      }
+
+      .sidebar .slider-container {
+        margin: 20px;
+      }
+
+      .sidebar .slider-label {
+        margin-bottom: 10px;
+        color: #1a1a1a;
+      }
+
+      .sidebar .slider {
+        width: 100%;
+      }
+
+      .sidebar .price-display {
+        margin-top: 10px;
+        color: #1a1a1a;
+        text-align: center;
+      }
+
+      .sidebar button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .sidebar button:hover {
+        background-color: #0056b3;
+      }
+
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .card {
+        margin: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.2s;
+        background-color: #1a1a1a;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        max-width: 250px;
+        height: 100%;
+      }
+
+      .card {
+        display: none;
+      }
+
+      .card:hover {
+        transform: scale(1.03);
+      }
+
+      .card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .card-body {
+        text-align: center;
+        padding: 15px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .buy-now-btn,
+      .add-to-cart-btn {
+        display: block;
+        width: 100%;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 5px;
+      }
+
+      .buy-now-btn {
+        background-color: #007bff;
+        border: 1px solid #007bff;
+        margin-bottom: 10px;
+      }
+
+      .buy-now-btn:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      .add-to-cart-btn {
+        background-color: #28a745;
+        border: 1px solid #28a745;
+      }
+
+      .add-to-cart-btn:hover {
+        background-color: #218838;
+        border-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <a class="navbar-brand" href="#">T-Shirt Collection</a>
+    </nav>
+    <div class="sidebar">
+      <h2>Price Filter</h2>
+      <div class="slider-container">
+        <label class="slider-label" for="price-slider">Price Range:</label>
+        <input
+          type="range"
+          class="slider"
+          id="price-slider"
+          min="0"
+          max="2000"
+          oninput="updatePriceDisplay()"
+        />
+        <p class="price-display">
+          Selected Price: ₹<span id="selected-price">2000</span>
+        </p>
+      </div>
+      <button id="apply-btn" type="button">Apply</button>
+    </div>
+    {% include 'messages.html' %}
+    <div class="content">
+      <!-- Card Section -->
+      <div class="row">
+        {% for tshirt in tshirts %}
+        <div class="col-md-4">
+          <div class="card" data-card-index="{{ forloop.counter0 }}">
+            <img
+              src="{{ tshirt.image.url }}"
+              class="card-img-top"
+              alt="{{ tshirt.name }} Image"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ tshirt.name }}</h5>
+              <p class="card-text">{{ tshirt.description }}</p>
+              <p class="card-price">Price: ₹{{ tshirt.price }}</p>
+              <a href="{% url 'checkout' tshirt.price %}" class="buy-now-btn"
+                >Buy Now</a
+              >
+              <a
+                href="{% url 'add_to_cart' product_id=tshirt.id %}"
+                class="add-to-cart-btn"
+                >Add to Cart</a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".card").click(function () {
+          var cardIndex = $(this).data("card-index");
+          updateSidebarContent(cardIndex);
+        });
+
+        function updateSidebarContent(cardIndex) {
+          var sidebarContent = "Default Sidebar Content";
+
+          if (cardIndex === 0) {
+            sidebarContent = "Sidebar Content for Card 1";
+          } else if (cardIndex === 1) {
+            sidebarContent = "Sidebar Content for Card 2";
+          } else if (cardIndex === 2) {
+            sidebarContent = "Sidebar Content for Card 3";
+          }
+
+          $("#sidebar-content").text(sidebarContent);
+        }
+
+        function applyPriceFilter() {
+          var maxPrice = parseInt($("#price-slider").val());
+          $("#selected-price").text(maxPrice);
+
+          $(".card").each(function () {
+            var cardPrice = parseInt(
+              $(this).find(".card-price").text().replace("Price: ₹", "")
+            );
+            if (cardPrice <= maxPrice) {
+              $(this).show();
+            } else {
+              $(this).hide();
+            }
+          });
+        }
+
+        function updatePriceDisplay() {
+          var selectedPrice = $("#price-slider").val();
+          $("#selected-price").text(selectedPrice);
+        }
+
+        // Initial apply of the price filter
+        applyPriceFilter();
+
+        $("#price-slider").on("input", function () {
+          updatePriceDisplay();
+        });
+
+        $("#apply-btn").click(function () {
+          applyPriceFilter();
+        });
+      });
+    </script>
+  </body>
+</html>
