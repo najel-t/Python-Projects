@@ -1,17 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Checkout</title>
 
-    <link rel="icon" href="{% static 'images/cart.jpg' %}" type="image/jpg">
+    <link rel="icon" href="{% static 'images/cart.jpg' %}" type="image/jpg"/>
 
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <link
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}"/>
 
     <style>
         .checkout {
@@ -64,115 +69,222 @@
 </head>
 
 <body>
-
-    <div class="py-3 py-md-4 checkout">
-        <div class="container">
-            <h4>Checkout</h4>
-            <hr>
-            <div class="col-md-12 mb-4">
-                <div class="shadow bg-white p-3">
-                    <h4 class="text-primary">Item Total Amount: <span class="float-end">₹{{ total_amount|floatformat:2 }}</span></h4>
-                    <hr>
-                    <small>* Items will be delivered in 3 - 5 days.</small>
-                    <br />
-                </div>
+<div class="py-3 py-md-4 checkout">
+    <div class="container">
+        <h4>Checkout</h4>
+        <hr/>
+        <div class="col-md-12 mb-4">
+            <div class="shadow bg-white p-3">
+                <h4 class="text-primary">
+                    Item Total Amount:
+                    <span class="float-end">₹{{ total_amount|floatformat:2 }}</span>
+                </h4>
+                <hr/>
+                <small>* Items will be delivered in 3 - 5 days.</small>
+                <br/>
             </div>
-            <div class="col-md-12">
-                <div class="shadow bg-white p-3">
-                    <h4 class="text-primary">
-                        Shipping Address
-                    </h4>
-                    <hr>
+        </div>
+        <div class="col-md-12">
+            <div class="shadow bg-white p-3">
+                <h4 class="text-primary">Shipping Address</h4>
+                <hr/>
 
-                    <form action="{% url 'checkout' total_amount %}" method="post">
-                        {% csrf_token %}
-                        <div class="row">
-                            {% for item in cart %}
-                            <input type="hidden" name="product_id_{{ item.product.id }}" value="{{ item.product.id }}">
-                            <input type="hidden" name="product_quantity_{{ item.product.id }}" value="{{ item.quantity }}">
-                            {% endfor %}
-                            {% include 'messages.html' %}
-                            {% if previous_shipping_address %}
-                            <div class="alert alert-info" role="alert">
-                                <strong>Saved Address:</strong> This address is saved for faster checkout.
+                <form action="{% url 'checkout' total_amount %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for item in cart %}
+                            <input
+                                    type="hidden"
+                                    name="product_id_{{ item.product.id }}"
+                                    value="{{ item.product.id }}"
+                            />
+                            <input
+                                    type="hidden"
+                                    name="product_quantity_{{ item.product.id }}"
+                                    value="{{ item.quantity }}"
+                            />
+                        {% endfor %}
+                        {% include 'messages.html' %}
+
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check mb-3">
+                                <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="apply_saved_address"
+                                        id="applySavedAddress"
+                                />
+                                <label class="form-check-label" for="applySavedAddress">
+                                    Apply saved address
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Display default address fields -->
+                        <div id="defaultAddressFields">
+                            <div class="col-md-12 mb-3">
+                                <label for="fullname">Full Name</label>
+                                <input
+                                        type="text"
+                                        id="fullname"
+                                        name="fullname"
+                                        class="form-control"
+                                        placeholder="Enter Full Name"
+                                        value=""
+                                />
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" name="apply_saved_address" id="applySavedAddress">
-                                    <label class="form-check-label" for="applySavedAddress">
-                                        Apply saved address
-                                    </label>
-                                </div>
+                                <label for="phone">Phone Number</label>
+                                <input
+                                        type="number"
+                                        id="phone"
+                                        name="phone"
+                                        class="form-control"
+                                        placeholder="Enter Phone Number"
+                                        value=""
+                                />
                             </div>
 
-                            <div id="savedAddressFields">
-                                <div class="col-md-12 mb-3">
-                                    <label for="fullname">Full Name</label>
-                                    <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter Full Name" value="">
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label for="phone">Phone Number</label>
-                                    <input type="number" id="phone" name="phone" class="form-control" placeholder="Enter Phone Number" value="">
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label>Email Address</label>
-                                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email Address" value="">
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label>Pin-code (Zip-code)</label>
-                                    <input type="number" id="pincode" name="pincode" class="form-control" placeholder="Enter Pin-code" value="">
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label>Full Address</label>
-                                    <textarea id="address" name="address" class="form-control" rows="2"></textarea>
-                                </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="email">Email Address</label>
+                                <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="Enter Email Address"
+                                        value=""
+                                />
                             </div>
-                            {% endif %}
+
+                            <div class="col-md-12 mb-3">
+                                <label for="pincode">Pin-code (Zip-code)</label>
+                                <input
+                                        type="number"
+                                        id="pincode"
+                                        name="pincode"
+                                        class="form-control"
+                                        placeholder="Enter Pin-code"
+                                        value=""
+                                />
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="address">Full Address</label>
+                                <textarea
+                                        id="address"
+                                        name="address"
+                                        class="form-control"
+                                        rows="2"
+                                ></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary">Place Order</button>
+
+                        <!-- Display saved address fields -->
+                        <div id="savedAddressFields" style="display: none;">
+                            <!-- Fetch saved address details via AJAX or from the server if needed -->
+                            <!-- For now, we assume an empty saved address -->
+                            <div class="col-md-12 mb-3">
+                                <label for="savedFullname">Full Name</label>
+                                <input
+                                        type="text"
+                                        id="savedFullname"
+                                        name="savedFullname"
+                                        class="form-control"
+                                        placeholder="Saved Full Name"
+                                        value=""
+                                        readonly
+                                />
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="savedPhone">Phone Number</label>
+                                <input
+                                        type="number"
+                                        id="savedPhone"
+                                        name="savedPhone"
+                                        class="form-control"
+                                        placeholder="Saved Phone Number"
+                                        value=""
+                                        readonly
+                                />
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="savedEmail">Email Address</label>
+                                <input
+                                        type="email"
+                                        id="savedEmail"
+                                        name="savedEmail"
+                                        class="form-control"
+                                        placeholder="Saved Email Address"
+                                        value=""
+                                        readonly
+                                />
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="savedPincode">Pin-code (Zip-code)</label>
+                                <input
+                                        type="number"
+                                        id="savedPincode"
+                                        name="savedPincode"
+                                        class="form-control"
+                                        placeholder="Saved Pin-code"
+                                        value=""
+                                        readonly
+                                />
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="savedAddress">Full Address</label>
+                                <textarea
+                                        id="savedAddress"
+                                        name="savedAddress"
+                                        class="form-control"
+                                        rows="2"
+                                        readonly
+                                ></textarea>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <button type="submit" class="btn btn-primary">
+                            Place Order
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const applySavedAddressCheckbox = document.getElementById('applySavedAddress');
-            const savedAddressFields = document.getElementById('savedAddressFields');
-            const formFields = {
-                fullname: document.getElementById('fullname'),
-                phone: document.getElementById('phone'),
-                email: document.getElementById('email'),
-                pincode: document.getElementById('pincode'),
-                address: document.getElementById('address'),
-            };
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const applySavedAddressCheckbox = document.getElementById('applySavedAddress');
+      const defaultAddressFields = document.getElementById('defaultAddressFields');
+      const savedAddressFields = document.getElementById('savedAddressFields');
 
-            applySavedAddressCheckbox.addEventListener('change', function () {
-                if (applySavedAddressCheckbox.checked) {
-                    // Fill in saved address details
-                    formFields.fullname.value = "{{ previous_shipping_address.fullname }}";
-                    formFields.phone.value = "{{ previous_shipping_address.phone }}";
-                    formFields.email.value = "{{ previous_shipping_address.email }}";
-                    formFields.pincode.value = "{{ previous_shipping_address.pincode }}";
-                    formFields.address.value = "{{ previous_shipping_address.address }}";
-                } else {
-                    // Clear form fields
-                    Object.values(formFields).forEach(field => {
-                        field.value = '';
-                    });
-                }
-            });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+      // Function to toggle saved address fields based on checkbox state
+      function toggleSavedAddressFields() {
+          if (applySavedAddressCheckbox.checked) {
+              defaultAddressFields.style.display = 'none';
+              savedAddressFields.style.display = 'block';
+          } else {
+              defaultAddressFields.style.display = 'block';
+              savedAddressFields.style.display = 'none';
+          }
+      }
+
+      // Set the initial state on page load
+      toggleSavedAddressFields();
+
+      // Add event listener to the checkbox
+      applySavedAddressCheckbox.addEventListener('change', toggleSavedAddressFields);
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
